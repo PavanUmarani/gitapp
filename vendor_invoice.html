@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Koovers</title>
+<link rel="shortcut icon" href="../../../../../images/icons/faviicon.png"> <meta name="description" content="" />
+<meta name="description" content="" />
+<meta name="keyword" content="" />
+<link rel="stylesheet" type="text/css" href="../../../../../css/jquery-ui.css" /> 
+<link rel="stylesheet" type="text/css" href="../../../../../css/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../../../../../css/isho/isho-custom-bizmod-swatch-1.css" />
+<link rel="stylesheet" type="text/css" href="../../../../../css/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="../../../../../css/style_bootstrap4.css" />
+
+<script src="../../../../../js/libs/jquery/jquery-1.9.1.js" type='text/javascript'></script>
+<script src="../../../../../js/libs/jquery/jquery.validate.js"></script>
+<script src="../../../../../js/libs/jquery/jquery-ui.js"></script> 
+<script src="../../../../../js/bootstrap/bootstrap.js"></script>
+<script src="../../../../../js/bootstrap/bootstrap.min.js"></script>
+<script src="../../../../../js/bootstrap/jquery_modal.js"></script>
+<script src="../../../../../js/editor/jquery.tinymce.min.js"></script>
+<script src="../../../../../js/editor/tinymce.min.js"></script> 
+<script src="../../../../../js/global/dbmanager.js" type='text/javascript'></script>
+<script src="../../../../../js/libs/underscore.js"></script>
+<script src="../../../../../js/global/global_bootstrap4.js" type="text/javascript"></script>
+<script src="../../../../../js/global/properties.js" type="text/javascript"></script>
+<script src="../../../../../js/global/data/tax_list.js" type="text/javascript"></script>
+<script src="../../../../../js/global/data/tax_array_list.js" type="text/javascript"></script>
+
+<script src="../../../../../js/global/vendor_invoice_cart.js" type="text/javascript"></script>
+<script src="scripts/vendor_invoice.js" type="text/javascript"></script>
+<style type="text/css">
+textarea#address
+{
+	
+	 border-style: solid;
+	border-color: #363636;
+	border-width: 1px;  
+    outline: none ! important; 
+    box-shadow: none ! important; 
+    background : #dedddd;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;	
+	width:200px;
+	height: 20px;
+	  resize: none;
+}
+
+textarea#deladdress
+{
+	
+	 border-style: solid;
+	border-color: #363636;
+	border-width: 1px;  
+    outline: none ! important; 
+    box-shadow: none ! important; 
+    background : #dedddd;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;	
+	width:200px;
+	height: 20px;
+	  resize: none;
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+input[type="number"] {
+	/* border: none ! important;   */
+	border-style: solid;
+	border-color: #363636;
+	border-width: 1px;
+	outline: none ! important;
+	box-shadow: none ! important;
+	background: #dedddd;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	width: 200px;
+	height: 20px;
+}
+
+
+</style>
+
+</head>
+<body>
+	<div id="page">
+		
+<header>
+<br>
+                 <table class="mainHeaderEnquiry">
+                   <tr>
+                    <td style="width: 5%;"><img src="../../../../../images/icons/koovers_logo.png" id="headerlogoimg"></td>
+                    <td style="width: 8%;"><a id="menutop" onclick="openNav()"><img src="../../../../../images/icons/menu-icon.png" id="headermenuicon"></a></td>
+                    <td style="width: 65%; text-align: center;"><h4 id="">PURCHASE INVOICE</h4></td>
+                    <td style="width: 5%;text-align:center; ">
+                    <button class="btn backbutton" id="cancelButton" name="cancelButton" onclick="onCancelOrder()"><i class="fa fa-arrow-left"  id="headerbackbutton" ></i> Back</button> 
+
+                    </td>
+                    <td style="width: 3%;" align="right"><input type="image" src="../../../../../images/icons/refresh_icon.png" onClick="javascript:location.reload();" id="headerrefreshimg"/></td>
+                    </tr>
+                   </table>
+         </header>
+		
+		<br>
+
+	<div  id="mySidenav"  class="sidenav"  data-direction="left" >
+
+			<ul data-role="listview" id="mpContainer" data-theme="c">
+
+				<script id="mpTmpl" type="text/template"> 
+
+									
+
+				<%		
+
+  _.each(roleFeaturePrivileges, function(mcatg,key) {
+
+			if (mcatg.itemList.length == 0 ) { %>
+
+							<table class="menupaneltable">
+
+				<tr style="font-size: 12px;">	
+
+				    <th class="menuheader" onClick="linkPage('<%= mcatg.featureURL%>')"><%= mcatg.featureName %></th>
+
+				</tr>
+
+			</table>
+
+							<% } else { %>
+
+				 <div class="card-group" id="accordion" style="margin-bottom:0px" onclick="myFunction(<%= mcatg.featureId %>)"  >
+
+    <div class="card card-default" data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=mcatg.featureId %>" style="padding:0px;cursor:pointer">
+
+      <div class="card-heading">
+
+
+
+
+
+<div class="row" data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=mcatg.featureId %>" style="padding:0px">
+
+<div class="col-md-1">
+
+<i class="fa fa-plus" id="sign_<%= mcatg.featureId %>" data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=mcatg.featureId %>" ></i>
+
+</div>
+
+
+
+<div class="col-md-10">
+
+<h4 class="card-title" style="width:100%">
+
+<b data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=mcatg.featureIds %>" style="padding:0px"><%= mcatg.featureName %></b>
+
+</h4>
+
+</div>
+
+</div>
+
+        
+
+          
+
+      </div>
+
+      <div id="collapse-<%=mcatg.featureId %>" class="card-collapse collapse">
+
+        <div class="card-body" style="padding:0px">
+
+            <table class="tblaltclrmenuPanel">
+
+            <%	 _.each(mcatg.itemList, function(mitem) { %>
+
+				<tr style="font-size: 12px;">	
+
+				    <th class="menuHead" onClick="linkPage('<%= mitem.itemURL %>')"><%= mitem.itemName %></th>
+
+<th class="menuheadone" onClick="linkPage('<%= mitem.itemURL %>')">
+
+<i class="fa fa-chevron-circle-right" ></i></th>
+
+				</tr>
+
+
+
+
+
+					<% }) %>
+
+			</table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+				<% } %>
+
+					<% }) %>
+
+				</script>
+
+			</ul>
+
+		</div>
+
+
+		 <div class="spinner-border" id="loading"></div>
+		
+		<div id="pagemaindiv">
+			
+			
+				<div class="">
+		
+		
+			
+					<form id="orderCreateformForm" class="">
+			<table class="enquiryHeaderMat">
+				<tr>
+					
+					<td style="width:20%;text-align:left;"><h2 id="addcustomer">Create Purchase Invoice</h2></td>
+					
+						<td style="width:1%;"></td>
+							<td style="width: 73%;"></td>
+							
+							<td style="width: 6%;" align="right" >
+							
+						
+
+							</td> 
+								
+							
+				</tr>
+			</table>
+			
+			
+		<table style="width:100%;table-layout: fixed;">
+		
+			<tr>
+		
+			<td style="width:20%;">
+				 
+				<div class="form-group">
+					<label>Vendor:</label>
+					<input type="text" class="form-control" id="vendorDL" name="vendorDL" placeholder="Select" style="width:100%">
+					<input type="hidden"  id="vendorId" name="vendorId" style="width:100%">
+					<input type="hidden"  id="vendorCode" name="vendorCode" style="width:100%">
+					<input type="hidden"  id="vendorGstin" name="vendorGstin" style="width:100%">
+					</div>
+			</td>
+							
+			<td style="width:3%;"></td>
+						
+			<td style="width:20%;">
+			<div class="row">
+			 <div class="col-8">
+				<label>Vendor Invoice Number:</label>
+				
+				<div class="form-group" style="width:100%; display: inline-flex;">
+					
+					<input type="text" class="form-control" id="invoiceNumber" name="invoiceNumber" style="width:100%;" >
+				</div>
+				</div>	
+				 <div class="col-4" style="padding-top:6%;">
+					<input type="button" id="vendorInv" name="vendorInv" value="Search" onclick="vendorInvoice()" >
+				</div>
+				
+			</div>
+			</td>
+						
+			<td style="width:3%;"></td>
+						
+			<td style="width:20%;" rowspan="2">
+				<div class="form-group">
+					<label>Billing Address:</label>
+						<textarea class="form-control txtdescrptnlistForTwoColumns" name="address" id="address" style="width:100%"></textarea>
+				</div>
+			</td>
+	                      
+			<td style="width:3%;"></td>
+
+
+			<td style="width:20%;" rowspan="2">
+				<div class="form-group">
+					<label>Shipping Address:</label>
+					<textarea class="form-control txtdescrptnlistForTwoColumns" name="deladdress" id="deladdress" style="width:100%"></textarea>
+				</div>
+			</td>
+			
+			
+			
+			</tr>
+					
+			<tr>
+			<td style="width:20%;">
+			<div class="form-group">
+					<label>Invoice Date:</label>
+					<input type="text" class="form-control" id="invoiceDate" name="invoiceDate" style="width:100%;" readonly/>
+					<input type="hidden" class="form-control" id="vendorName" name="vendorName" style="width:100%;">
+					<input type="hidden" class="form-control" id="vendorId" name="vendorId" style="width:100%;">
+					
+					
+				</div> 
+			</td>
+			<td style="width:3%;"></td>
+			<td style="width:20%;">
+			<div class="form-group">
+					<label>Delivery Date:</label>
+					<input type="text" class="form-control" id="deliveryDate" name="deliveryDate" style="width:100%" readonly/>
+				</div> 
+			
+			</td>
+			<td style="width:3%;"></td>
+			<td style="width:20%;"></td>
+			
+			</tr>		
+						
+				
+				
+						
+				
+			<tr>
+			<td style="width:20%;">
+			
+				<div class="form-group">
+					<label>Bill To:</label>
+					<select  id="fromwhDL"  name="fromwhDL"  class="selectoptionformcontrol" data-role="none"  onchange="billcompanyBranchChange()">
+					<script id="warehseTmpl" type="text/template">		
+						<option id="" value="">Select</option>	
+						<% _.each(wh1.wh1list, function (ditem) {  %>
+							<option value ="<%= ditem.companyRegionId %>" ><%= ditem.value %></option>
+						<% }); %>									
+					</script>
+					</select>
+					 <input type="hidden" id="billcompanyRegionId" name="billcompanyRegionId"  style="width:100%" >	
+					 <input type="hidden" id="billToaddressId" name="billToaddressId"  style="width:100%" >	
+					 	
+					
+				</div>	
+				
+			</td>
+						
+			<td style="width:3%;"></td>
+							
+			<td style="width:20%;">
+				<div class="form-group">
+					<label>Ship To:</label>
+					<select  id="shipfromwhDL"  name="shipfromwhDL"  class="selectoptionformcontrol" data-role="none"  onchange="shipcompanyBranchChange()">
+					<script id="shipwarehseTmpl" type="text/template">		
+						<option id="" value="">Select</option>	
+						<% _.each(wh1.wh1list, function (ditem) {  %>
+							<option value ="<%= ditem.id %>" ><%= ditem.value %></option>
+						<% }); %>									
+					</script>
+					</select>
+					<input type="hidden" id="shipcompanyRegionId" name="shipcompanyRegionId"  style="width:100%" >	
+					<input type="hidden" id="shipToaddressId" name="shipToaddressId"  style="width:100%" >	
+				</div>
+			</td>
+					
+					
+			<td style="width:3%;"></td>
+			
+			<td style="width:20%">
+			
+			<div class="form-group">
+					<label>Supplier Ref.:</label>
+					<input type="text" class="form-control" id="supplyRefNo" name="supplyRefNo" style="width:100%">
+				</div>
+			
+			</td>
+			
+				
+			<td style="width:3%;"></td>
+			<td style="width:20%;" rowspan="2">
+			<!-- <div class="form-group">
+					<label>Terms Of Delivery:</label>
+					
+					<textarea class="form-control txtdescrptnlistForTwoColumns" name="termsOfDelivery" id="termsOfDelivery" style="width:100%"></textarea>
+					
+				</div> -->
+						<input type="button" id="saveButton" value="Save" onClick="onSaveInvoice()">
+			</td>		
+					
+ 			</tr>
+				
+			
+			
+		
+		
+		
+		
+		
+		
+		
+			<tr style="display:none">
+			<td style="width:20%;">
+			<div class="form-group">
+					<label>Dispatched Through:</label>
+				<input type="text" id="dispatchThrough" name="dispatchThrough" style="width:100%" >
+					
+				</div>
+				
+			</td>
+							
+			<td style="width:3%;"></td>
+			
+					
+			<td style="width:20%;">
+				<div class="form-group">
+					<label>Destination:</label>
+				<input type="text" id="destination" name="destination" style="width:100%" >
+					
+				</div>
+				
+			</td>
+				
+					
+			<td style="width:3%;"></td>
+						
+			<td style="width:20%;">
+				<div class="form-group">
+					<label>Payment Type:</label>
+					<select id="paymentType" name="paymentType"  class="selectoptionformcontrol" data-role="none">
+						<option value="">Select</option>
+						<option value="CREDIT">CREDIT</option>
+						<option value="COD">COD</option>
+						<option value="WALLET">WALLET</option>
+					</select>
+				</div>
+			</td>	
+	                      
+			<td style="width:3%;"></td>
+
+			
+			</tr>
+			
+			
+			
+			
+			
+				
+		
+							
+			<tr style="display:none">
+			<td style="width:20%;">
+			<div class="form-group">
+					<label>E-Way Bill Number:</label>
+              <input type="text" id="ewaybillNum" name="ewaybillNum" maxlength="20" style="width:100%" >		
+              		</div>
+				
+			</td>
+						
+			<td style="width:3%;"></td>
+			
+				
+			<td style="width:20%;">
+			
+			
+			
+				
+			</td>	
+		<td style="width:3%;"></td>
+			
+			<td style="width:20%;" >
+			
+				</td>
+					
+					
+		
+				
+			<td style="width:3%;"></td>
+					
+					<td style="width:20%;padding-left: 13%;">
+					<input type="button" id="saveButton" value="Save" onClick="onSaveInvoice()">
+					</td>
+				
+ 			</tr>	
+ 			<tr>
+			<td style="width:20%;">
+			
+				
+			</td>
+						
+			<td style="width:3%;"></td>
+			
+				
+			<td style="width:20%;">
+			
+			
+			
+				
+			</td>	
+		<td style="width:3%;"></td>
+			
+			
+					
+					
+		<td style="width:20%;">
+				             	
+				             		
+				             	</td>
+				
+			
+			
+ 			</tr>	
+ 			
+				
+			</table>
+			
+			
+	</form>
+			
+			
+			</div>
+			
+			
+				<div class="">
+		
+			
+					<div>
+								<p id="msgtxt" class="message" style="margin-left:2%;"></p>
+							</div>
+							
+	
+					
+					
+			
+
+                  
+
+	<div>
+		<ul data-role="listview" id="invoiceContainer" data-theme="c" data-divider-theme="c" class="scrollTable" style="overflow-x: hidden;">
+	
+			<script id="invoicetTmpl" type="text/template"> 
+<div  class="scrolltableDiv" style="width: 100%;">	
+	
+							<table class="tblaltclr table-bordered" id="invoicemyTable" style="width:100%;table-layout:fixed;"  >	
+								
+<thead>
+<tr>
+                
+                <th style="width:3%;">SI</th> 
+					<th style="width:10%;">HSN Code</th>
+                    <th style="width:12%;">Product Code</th>
+					<th style="width:15%;">Product Name</th>
+              
+					<th style="width:10%;">Material Type</th> 
+					<th style="width:10%;">Product Brand</th>
+                  <!--   <th style="width:10%;">Vendor</th> -->
+                 
+
+            	     <th style="width:6%;">Qty</th>
+                      
+                  <th style="width:9%;">MRP</th>
+				<th style="width:8%;">PD</th>	
+					<th style="width:9%;">Unit Price <br> (Taxable Price)</th>	
+					<th style="width:13%;" class="taxhead">
+					
+					<table>
+					<tr>
+					<td colspan="2">CGST</td>
+					
+					</tr>
+					<tr>
+					<td style="width:50%">Rate %</td>
+					<td style="width:50%">Amount</td>
+					</tr>
+					</table>
+					</th>	
+									<th style="width:13%;" class="taxhead">
+					
+					<table>
+					<tr>
+					<td colspan="2">SGST</td>
+					
+					</tr>
+					<tr>
+					<td style="width:50%">Rate %</td>
+					<td style="width:50%">Amount</td>
+					</tr>
+					</table>
+					</th>	
+							
+                    <th style="width:10%;">Total Price</th>
+				</tr>
+</thead>
+
+
+
+
+
+                <tbody>	
+                <% var incr=0;
+
+ _.each(invoiceItemList, function(inv){ incr++;
+
+
+  
+if(inv.isActive != "N"){
+ var dis = 0;var itemTax ;var taxlist=0 ;var taxarraylist;mainOrderItemsId = inv.matId %>
+<% if(inv.processmatId == null || inv.processmatId == undefined || inv.processmatId == ""){%>
+                                     <tr>	
+                            <!-- <td style="width:0%;" class="tablealign">
+							<i class="fa fa-times fontdelt" aria-hidden="true" id="delete-item" onclick="deleteItem('<%= inv.rowId %>')">
+     </td> -->
+
+<%if(inv.taxArray != null && inv.taxArray != undefined && inv.taxArray !=""){ var i =0; %>
+ <%  taxarraylist = JSON.stringify(inv.taxArray); %>
+   <% }  %>
+
+				<td style="width:3%;"><%= incr %></td>
+
+                  <td style="width:10%;">
+
+                                   <input type="text" id="itemHsn-<%=inv.rowId %>" value=" <%= inv.hsnCode  %>" name="itemHsn-<%=inv.rowId %>"   style="width:100%;" onChange='updateHsn(this,<%=inv.rowId%>,0,0,"MRP",0,<%=discountArray%>)' maxlength="20" readonly/> 
+                                  
+
+  </td>
+                             
+          
+
+ <td style="width:12%;">
+
+ <input type="text" id="itemMatCode-<%=inv.rowId %>" value=" <%= inv.matCode  %>" name="itemMatCode-<%=inv.rowId %>"   style="width:100%;" onChange='updateMatCode(this,<%=inv.rowId%>,0,0,"MRP",0,<%=discountArray%>)' maxlength="20" readonly/> 
+
+
+</td>
+
+     <td  style="width:15%;"><%=inv.matName %></td>
+
+
+
+<td style="width:10%" >
+				<div>
+					<select id="materialType-<%= inv.rowId %>" name="materialType-<%= inv.rowId %>" value="<%= inv.materialType %>"
+						class="form-control selectoptionformcontrol" maxlength="50" onchange="changeMaterial('<%= inv.rowId %>')"
+						 
+						style="width: 100%;" data-role="none">
+
+
+
+               <option value="OES">OES</option>
+
+               <option value="OEM">OEM</option>
+		
+
+			</select>
+		</div>
+  </td>
+
+<td style:width:10%;">
+<div>
+				<select id="matbrand-<%= inv.rowId %>" name="matbrand-<%= inv.rowId %>"
+				value="<%= inv.prdBrand %>" class="form-control selectoptionformcontrol" maxlength="50" onChange="changeBrand('<%= inv.rowId %>')"
+				style="width: 100%;" data-role="none" >
+
+	
+					<option id="" value="">Select</option>
+
+   					<% _.each(allproductBrands.allproductBrandList,function(itm){%>
+
+					<option  value="<%= itm.value %>"><%= itm.value %></option>
+
+					<% }); %> 	
+
+				</select>
+			</div>
+
+</td>
+
+
+
+<td style="width:5%;text-align: center; vertical-align: middle;" align="center" >
+ <%if(inv.discArray != undefined && inv.discArray  !=null && inv.discArray  !=""){%> 
+<input type="text" id="finalitemQty-<%=inv.rowId %>" value="<%= inv.finalOrderQty  %>" name="finalitemQty-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateQty(this,<%=inv.rowId%>,0,0,"MRP",<%= taxarraylist  %>,<%=discountArray%>)' readonly/>
+
+<%} else {%>
+
+<input type="text" id="finalitemQty-<%=inv.rowId %>" value="<%= inv.finalOrderQty  %>" name="finalitemQty-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateQty(this,<%=inv.rowId%>,0,0,"MRP",<%= taxarraylist  %>)' readonly/>
+<%}%>
+</td>
+
+
+     
+
+
+<!-- <td style="width:8%;text-align: center; vertical-align: middle;" align="center" >
+<input type="text" id="itemDiscount-<%= inv.matCountId%>" name="itemDiscount-<%= inv.matCountId%>" onkeypress="return isNumber(event)" 
+onChange='updateDisocuntPercentage(this,<%=inv.orderItemId%>,0,0)'  onKeyDown="if(this.value.length==8 && event.keyCode!=8) return false;" 
+value="<%= inv.batchDiscountPercentage %>" style="width:100%;text-align:center;" class="sqmqty_+"<%=inv.matCountId%>" /></td>       -->                         
+
+
+
+
+
+
+ <td style="width:7%;">
+<%if(inv.taxArray != null && inv.taxArray != undefined && inv.taxArray !=""){ var i =0;
+                                               _.each(inv.taxArray,function(itm){  
+                                 if(i ==0){%>
+                            <%      itemTax = itm.taxPercent  %>
+                                  <% }  %>
+                                 <% i++; }); %>                
+                                     <% } else {%> 
+                               <%   itemTax = "" %>
+                                  <%  } %>
+
+                                     <%if(inv.discArray != undefined && inv.discArray  !=null && inv.discArray  !=""){%> 
+
+<% if(inv.maxRetailPrice !="" && inv.maxRetailPrice !=null && inv.maxRetailPrice!=undefined) {%> 
+<input type="text" id="itemMrp-<%=inv.rowId %>" value="<%= parseFloat(inv.maxRetailPrice).toFixed(2)  %>" name="itemMrp-<%=inv.rowId %>"  onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateMrp(this,<%= inv.rowId %>,<%= inv.maxRetailPrice %>,0,"MRP",<%= taxarraylist  %>)' />
+<%}else{%>
+<input type="text" id="itemMrp-<%=inv.rowId %>" value="<%= parseFloat(inv.maxRetailPrice).toFixed(2)  %>" name="itemMrp-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateMrp(this,<%= inv.rowId %>,0,0,"MRP",<%= taxarraylist  %>,<%=discountArray%>)' />
+<%}%>
+
+
+<%}else{%>
+
+<% if(inv.maxRetailPrice !="" && inv.maxRetailPrice !=null && inv.maxRetailPrice!=undefined) {%> 
+<input type="text" id="itemMrp-<%=inv.rowId %>" value="<%= parseFloat(inv.maxRetailPrice).toFixed(2)  %>" name="itemMrp-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateMrp(this,<%= inv.rowId %>,<%= inv.maxRetailPrice %>,0,"MRP",<%= taxarraylist  %>,<%=discountArray%>)' / >
+<%}else{%>
+<input type="text" id="itemMrp-<%=inv.rowId %>" value="<%= parseFloat(inv.maxRetailPrice).toFixed(2)  %>" name="itemMrp-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateMrp(this,<%= inv.rowId %>,0,0,"MRP",<%= taxarraylist  %>)' />
+<%}%>
+
+<%}%>
+
+
+</td>
+
+
+<td style="width:8%;text-align: center; vertical-align: middle;" align="center" >
+ <%if(inv.discArray != undefined && inv.discArray  !=null && inv.discArray  !=""){%> 
+<input type="text" id="itemDiscount-<%=inv.rowId %>" value="<%= parseFloat(inv.batchDiscountPercentage).toFixed(2)  %>" name="itemDiscount-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateDisocuntPercentage(this,<%=inv.rowId%>,0,0,"MRP",<%= taxarraylist  %>,<%=discountArray%>)'/>
+
+<%} else {%>
+
+<input type="text" id="itemDiscount-<%=inv.rowId %>" value="<%= parseFloat(inv.batchDiscountPercentage).toFixed(2)  %>" name="itemDiscount-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateDisocuntPercentage(this,<%=inv.rowId%>,0,0,"MRP",<%= taxarraylist  %>)' />
+<%}%>
+</td>
+
+
+ <td style="width:7%;">
+
+  <%if(inv.discArray != undefined && inv.discArray  !=null && inv.discArray  !=""){%> 
+
+<% if(inv.unitPrice !="" && inv.unitPrice !=null && inv.unitPrice!=undefined) {%> 
+<input type="text" id="itemunitPrice-<%=inv.rowId %>" value="<%= parseFloat(inv.unitPrice).toFixed(2) %>" name="itemunitPrice-<%=inv.rowId %>"  onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateMrp(this,<%= inv.rowId %>,<%= inv.unitPrice %>,0,"UNITPRICE",<%= taxarraylist  %>,<%=discountArray%>)' readOnly/ >
+<%}else{%>
+<input type="text" id="itemunitPrice-<%=inv.rowId %>" value="<%= parseFloat(inv.unitPrice).toFixed(2)  %>" name="itemunitPrice-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateMrp(this,<%= inv.rowId %>,0,0,"UNITPRICE",<%= taxarraylist  %>,<%=discountArray%>)' readOnly/>
+<%}%>
+
+
+<%}else{%>
+
+<% if(inv.unitPrice !="" && inv.unitPrice !=null && inv.unitPrice!=undefined) {%> 
+<input type="text" id="itemunitPrice-<%=inv.rowId %>" value="<%= parseFloat(inv.unitPrice).toFixed(2)  %>" name="itemunitPrice-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateMrp(this,<%= inv.rowId %>,<%= inv.unitPrice %>,0,"UNITPRICE",<%= taxarraylist  %>)' readOnly/ >
+<%}else{%>
+<input type="text" id="itemunitPrice-<%=inv.rowId %>" value="<%= parseFloat(inv.unitPrice).toFixed(2)  %>" name="itemunitPrice-<%=inv.rowId %>" onkeypress="return isNumberDec(event,this)"  style="width:100%;" onChange='updateMrp(this,<%= inv.rowId %>,0,0,"UNITPRICE",<%= taxarraylist  %>)' readOnly/>
+<%}%>
+
+<%}%>
+
+
+
+
+</td>
+
+
+
+<%if(inv.taxArray != null && inv.taxArray != undefined && inv.taxArray !=""){ var i =0;
+        _.each(inv.taxArray,function(itm,key){  
+taxlist++;
+  if(key == 0){ 
+
+ if(itm.taxType == "CGST"){%>
+<td style="width:5%;"class="descriptionalignment">
+	<table style="width:100%;table-layout:fixed;">
+		<tr>
+            <td style="width:50%; border: none;" class="descriptionalignment">
+				<select class="selectoptionfordescriptionlist" data-role="none" value ="<%= itm.taxPercent  %>" id="cgsttax_<%=inv.rowId%>"  name="cgsttax_<%=inv.rowId%>" onchange="addTaxCost('<%=inv.tax1%>','<%=inv.rowId%>','0',1,'<%=inv.unitPrice%>')">
+   					<option value ="0">0</option>
+                      <% var TaxList = JSON.parse(sessionStorage.getItem("TAX_LIST"));
+							_.each(TaxList, function (citem) { %>
+							<% if (citem.taxType == "CGST"){%>
+								<option value ="<%= citem.id %>"><%= citem.percentage %>
+								</option>
+							<%}%>
+							<% }); %>
+                 </select>
+ 			</td>
+			<td style="width:50%; border: none;" class="descriptionalignment text-right"> <%= itm.taxAmount  %>
+			</td>
+		</tr>
+	</table>
+</td>
+
+<% } else { %> 
+<td style="width:5%;"class="descriptionalignment">
+	<table style="width:100%;table-layout:fixed;">
+		<tr>
+			<td style="width:50%;  border: none;" class="descriptionalignment">
+				<select class="selectoptionfordescriptionlist" data-role="none" value ="<%= itm.taxPercent  %>"  id="cgsttax_<%=inv.rowId%>"  name="cgsttax_<%=inv.rowId%>" onchange="addTaxCost('<%=inv.tax1%>','<%=inv.rowId%>',0,1,'<%=inv.unitPrice%>')" >
+   					<option value ="0">0</option>
+					<% var TaxList = JSON.parse(sessionStorage.getItem("TAX_LIST"));
+					 _.each(TaxList, function (citem) { %>
+						<% if (citem.taxType == "CGST"){%>
+							<option value ="<%= citem.id %>"><%= citem.percentage %>
+							</option>
+							<%}%>
+						<% }); %>
+                 </select>
+			</td>
+            <td style="width:50%; border: none;" class="descriptionalignment text-right"><%= itm.taxAmount  %>
+			</td>
+        </tr>
+	</table>
+</td>
+<%  } %>
+<%  } %>
+<%     if(key == 1){ %>
+   <% if(itm.taxType == "SGST"){%>
+
+ <td style="width:5%;"class="descriptionalignment">
+<table style="width:100%;table-layout:fixed;">
+<tr>
+                                  
+  <td style="width:50%;  border: none;" class="descriptionalignment">
+
+
+<select class="selectoptionfordescriptionlist" data-role="none" value ="<%= itm.taxPercent  %>" id="sgsttax_<%=inv.rowId%>"  name="sgsttax_<%=inv.rowId%>" onchange="addTaxCost('<%=inv.tax2%>','<%=inv.rowId%>',0,2,'<%=inv.unitPrice%>')"  >
+   <option value ="0">0</option>
+                                   
+                                       <%
+
+ var TaxList = JSON.parse(sessionStorage.getItem("TAX_LIST"));
+
+ _.each(TaxList, function (citem) { %>
+<% if (citem.taxType == "SGST"){%>
+	<option value ="<%= citem.id %>"><%= citem.percentage %>
+</option>
+<%}%>
+										<% }); %>
+                                 
+						 	 </select>
+
+
+
+ </td>
+                                  <td style="width:50%;  border: none;" class="descriptionalignment text-right"> 
+<%= itm.taxAmount  %>
+
+ </td>
+                               
+</tr>
+</table>
+</td>
+
+
+ <% } else { %> 
+
+ <td style="width:5%;"class="descriptionalignment">
+<table style="width:100%;table-layout:fixed;">
+<tr>
+                                  <td style="width:50%; border: none;" class="descriptionalignment"></td>
+                                
+                                
+
+</tr>
+</table>
+</td>
+  <%  } %>
+       <%  } %>
+ 
+                                 <%  }); %>                
+                <%  } else {%>  
+
+
+ <td style="width:5%;"class="descriptionalignment">
+<table style="width:100%;table-layout:fixed;">
+<tr>
+
+                   <td style="width:50%; border: none;" class="descriptionalignment">
+<select class="selectoptionfordescriptionlist" data-role="none" value ="" id="cgsttax_<%=inv.rowId%>"  name="cgsttax_<%=inv.rowId%>" onchange="addTaxCost('<%=inv.tax1%>','<%=inv.rowId%>',0,1,'<%=inv.unitPrice%>')" >
+   <option value ="0">0</option>
+                                   
+                                       <%
+
+ var TaxList = JSON.parse(sessionStorage.getItem("TAX_LIST"));
+
+ _.each(TaxList, function (citem) { %>
+<% if (citem.taxType == "CGST"){%>
+	<option value ="<%= citem.id %>"><%= citem.percentage %>
+</option>
+<%}%>
+<% }); %>
+                                 
+ </select>
+
+</td>
+ <td style="width:50%; border: none;" class="descriptionalignment text-right">
+
+</td>
+</tr>
+</table>
+</td> 
+
+
+ <td style="width:5%;"class="descriptionalignment">
+<table style="width:100%;table-layout:fixed;">
+<tr>
+
+ <td style="width:50%; border: none;" class="descriptionalignment">
+<select class="selectoptionfordescriptionlist" data-role="none" value ="" id="sgsttax_<%=inv.rowId%>"  name="sgsttax_<%=inv.rowId%>" onchange="addTaxCost('<%=inv.tax2%>','<%=inv.rowId%>',0,2,'<%=inv.unitPrice%>')" >
+   <option value ="0">0</option>
+                                   
+                                       <%
+
+ var TaxList = JSON.parse(sessionStorage.getItem("TAX_LIST"));
+
+ _.each(TaxList, function (citem) { %>
+<% if (citem.taxType == "SGST"){%>
+										<option value ="<%= citem.id %>"><%= citem.percentage %>
+</option>
+<%}%>
+										<% }); %>
+                                 
+						 	 </select>
+</td>
+                                 <td style="width:50%; border: none;" class="descriptionalignment text-right">
+
+
+</td>
+
+</tr>
+</table>
+</td>
+
+
+<%}%>
+<% if(taxlist == 1) {%>
+        
+ <td style="width:5%;"class="descriptionalignment">
+<table style="width:100%;table-layout:fixed;">
+<tr>
+
+  <td style="width:50%; border: none;" class="descriptionalignment">
+<select class="selectoptionfordescriptionlist" data-role="none" value ="" id="sgsttax_<%=inv.rowId%>"  name="sgsttax_<%=inv.rowId%>" onchange="addTaxCost('<%=inv.tax2%>','<%=inv.rowId%>',0,2,'<%=inv.unitPrice%>')">
+   <option value ="0">0</option>
+                                   
+                                       <%
+
+ var TaxList = JSON.parse(sessionStorage.getItem("TAX_LIST"));
+
+ _.each(TaxList, function (citem) { %>
+<% if (citem.taxType == "SGST"){%>
+										<option value ="<%= citem.id %>"><%= citem.percentage %>
+</option>
+<%}%>
+										<% }); %>
+                                 
+						 	 </select>
+</td>                
+   <td style="width:50%;  border: none;" class="descriptionalignment text-right">
+
+
+
+</td>
+
+</tr>
+</table>
+</td>
+
+<% }%>    
+
+
+
+<td style="width:10%;text-align: right; vertical-align: middle;"align="right" >
+
+<input type="text" id="processPrice-<%=inv.rowId %>" value="<%= inv.totalPrice  %>" name="processPrice-<%=inv.rowId %>" onkeypress="return isNumber(event)"  style="width:100%;text-align: right;" onChange='updateinvoiceItemDetails(this,<%=inv.rowId%>)' readOnly/>
+
+
+</td>
+
+
+    
+                         
+                                
+</tr>
+
+			
+<% } } }); %>
+
+
+   <% var tax1total= 0; var tax2total= 0;var tax3total=0;  _.each(invoiceTaxList,function(vTax,key){  %>
+    <%if(vTax.taxType == "CGST"){%>
+<% tax1total=parseFloat(tax1total)+parseFloat(vTax.totalamount) %>
+<%}%>
+  <%if(vTax.taxType == "SGST"){%>
+<% tax2total= parseFloat(tax2total)+parseFloat(vTax.totalamount)%>
+<%}%>
+  <%if(vTax.taxType == "IGST"){%>
+ <% tax3total= parseFloat(tax3total)+parseFloat(vTax.totalamount)%>
+<%}%>
+   <% }); %>
+<tr>
+<td style="text-align: center; vertical-align: middle;width:89%;"align="center" colspan="10" ></td>
+<td style=" text-align:right; vertical-align: middle;width:4%;"align="center" ><%=parseFloat(tax1total).toFixed(2)%></td>
+<td style="text-align: right; vertical-align: middle;width:4%;"align="center" ><%=parseFloat(tax2total).toFixed(2)%></td>
+
+ <td style="text-align: center; vertical-align: middle;width:8%;"align="center" ></td>
+		</tr> 	
+                        
+                   
+  
+<tr align="right">
+  <td class="tblrghtalgn" colspan="12"><label id="lbltaxPercentage"><b>Sub Total: Rs.</b></label></td>
+  <td style="text-align: right; width:4.7%;"><input style="text-align: right; width:100%;height:30px;" type="text" id="subTotalCd" name="subTotalCd" value="<%= invoiceSubTotl %>" onChange= "onInvoiceSubTotalChange(this)"/>
+						
+</tr>
+
+
+<% if(discountList !="" && discountList != undefined && discountList != null) {%>
+<% _.find(discountList,function(vTax){
+                      var str = vTax.discType.toLowerCase();
+                                 var strr = str.replace(/\b./g, function(m){ return m.toUpperCase(); });             %>
+                            
+<tr align="right">
+  <td class="tblrghtalgn"class="tblrghtalgn" colspan="12"><label id="lbltaxPercentage"><b> <%= strr %> : Rs.</b></label></td>
+  <td style="text-align: right;width:4.7%;" ><input style="text-align: right; width:100%;height:30px;" type="text" id="taxTotal" name="taxTotal" value="<%= vTax.totalDisamount %>" readOnly/></td>
+						
+</tr>
+
+
+                      <% }); %>
+<%}%>
+
+
+
+  <% _.find(invoiceTaxList,function(vTax){
+                          var str = vTax.taxType;
+                                 var strr = str.replace(/\b./g, function(m){ return m.toUpperCase(); });         %>
+<tr align="right">
+  <td class="tblrghtalgn"colspan="12"><label id="lbltaxPercentage"><b> <%= strr %> @ <%= vTax.taxPercent %>%: Rs.</b></label></td>
+  <td style="text-align: right;width:4.7%;" ><input style="text-align: right; width:100%;height:30px;" type="text" id="taxTotal" name="taxTotal" value="<%= vTax.totalamount %>" onChange= "onInvoiceTaxChange(this,'<%= vTax.taxId %>')"/ ></td>
+						
+</tr>                          
+                      <% }); %>
+<% _.find(invoiceSurchargeList,function(vTax){
+                      var str = vTax.taxName.toLowerCase();
+                                 var strr = str.replace(/\b./g, function(m){ return m.toUpperCase(); });             %>
+                            
+<tr align="right">
+  <td style="text-align: right;white-space: nowrap;width:85%;" colspan="12"><label id="lbltaxPercentage"><b> <%= strr %> @ <%= vTax.taxPercent %>%: Rs.</b></label></td>
+  <td style="text-align: right;width:4.7%;" ><input style="text-align: right; width:100%;height:30px;" type="text" id="taxTotal" name="taxTotal" value="<%= vTax.totalamount %>" readOnly/ ></td>
+						
+</tr>
+
+                      <% }); %>
+
+
+
+
+<tr align="right">
+  <td class="tblrghtalgn"colspan="12"><label id="lbltaxPercentage"><b> Grand Total: Rs.</b></label></td>
+  <td style="text-align: right;width:4.7%;" ><input style="text-align: right; width:100%;height:30px;" type="text" id="txtgrandTotal" name="txtgrandTotal" value="<%=Math.round(invoiceGrandTotl) %>" onChange= "onInvoiceTotalChange(this)"/>					
+</tr>
+
+</tbody>
+
+</table>   
+
+</div>
+
+</script>
+</ul>
+</div>
+		
+		
+		
+		</div>
+		
+<!-- 		<div data-role="popup" id="confirmDialog" data-theme="c" class="ui-corner-all" style="width:75%;height:140px;">
+	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+          <br>
+					<table style="width:96%;margin-left:2%;margin-right:2%;height:100px">
+					<tr>
+					<td id="outstandingMessage" style="font-size:18px;color:#333333"></td>
+					</tr>
+					<tr>
+					<td>
+					</td>
+					</tr>
+					<tr>
+					<td align="right">
+					<input type="button" value="Yes" id="btnSave" name="btnSave" onclick="onOverrideSaveInvoice()" style="width:20%" ><input type="button" value="No" id="btnCancel" name="btnCancel" style="width:20% ;"onClick="onOverrideCancel()"></td></td>
+					</tr>
+					</table>
+				</div> -->
+	</div>
+	
+	
+		
+		<div id="displayDiscDialog" class="modal" >
+
+				<form id="reason" class="pricingForm">
+
+		
+	
+		
+			<div class="row allmodalheaderrow">
+		
+		<div class="col-sm-6"><h3 id="allModalHeader">Price Details</h3></div>
+		<div class="col-sm-6" id="allmodalDelete"><i class="fa fa-times" aria-hidden="true" id="deleteMaterial"   onClick="modalContactPopupClose()"></i></div>
+		
+			
+		</div>  
+					<table  style="width:65%;margin-left:18%;">
+					<tr id="" style="">
+						
+					   
+						<td style="text-align: left;width:60%" colspan="2">
+						<div>
+						<label>Selling Price</label>
+						<input type="text" id="sellingPrice" class="form-control" style="width:100%;" required>
+						</div>
+						
+			  </td>
+					</tr>
+					
+					<tr id="" style="">
+						
+					   
+						<td style="text-align: left;width:60%" colspan="2">
+						<div>
+						<label>Inclusive of tax</label>
+					<select id="txt_dis_tax" name="txt_dis_tax" class="selectoption form-control" data-role="none" >
+  <option>NO</option>
+ <option>YES</option>
+
+</select>	  
+						</div>
+						
+			  </td>
+					</tr>
+					
+					
+					<tr>
+					  
+					       <td style="width:65%" >
+						<table style="width:100%">
+						<tr>
+						<td style="width:40%"></td>
+						<td style="width:29%"><input type="button" id="txtAddDisc" name="txtAddDisc" value="Ok" onClick="ChangeSellingPrice()" style="width:100%;" />
+						</td>
+						<td style="width:2%"></td>
+						<td style="width:29%">
+					<input type="button" id="txtinvoiceItemStatuscancel" name="txtinvoiceItemStatuscancel" value="Cancel" onClick="cancelSellingPrice();" style="width:80%;" />
+						
+						</td>
+						</tr>
+						</table>
+						
+						</td>
+						
+					</tr>
+					</table>
+		
+		
+			</form>
+		</div>
+			
+				
+		
+		<div id="salesorderItemsDialog" class="addboxMatmodal modal">
+
+				<form id="itemDetailsform" class="paddingForm">
+
+		
+	
+		
+		
+			<div class="row allmodalheaderrow">
+		
+		<div class="col-sm-6"><h3 align="left" id="allModalHeader">Add Item</h3></div>
+		<div class="col-sm-6" id="allmodalDelete"><i class="fa fa-times" aria-hidden="true" id="deleteMaterial"   onClick="modalContactPopupClose()"></i></div>
+		
+			
+		</div> 
+			
+		
+		  <table style="width:100%;table-layout: fixed;" >
+			<tr>
+			<td style="width:5%;"></td>
+			<td style="width:29%;" onclick="carsparesClick()">
+				<input type="hidden" id="txtMatName" value="" />
+	  			<label class="btn btn-primary active" style="font-size:12px;    text-align: left;" id="carsparelable">
+	    		<input type="radio" name="options"  value="CAR SPARES" id="carsparradio" checked>&nbsp;CAR SPARES</label>
+ 			</td>
+ 			<td></td>
+ 
+ 			<td style="width:29%;" onclick="commonItemsClick()">
+  				<label class="btn btn-primary" style="font-size:12px;    text-align: left;" id="commonitemlable" >
+    			<input type="radio" name="options" value="COMMON ITEMS" id="commonItemradio">&nbsp;COMMON ITEMS</label>
+ 			</td>
+ 			
+ 			<td></td>
+ 			
+ 			<td style="width:29%;" onclick="stockItemsClick()">
+              <label class="btn btn-primary" style="font-size:12px; text-align: left;width:100%;" id="stockitemlable" >
+            <input type="radio" name="options" value="STOCK ITEMS" id="stockItemradio">&nbsp;STOCK ITEMS
+            </label>
+            </td>
+ 			<td style="width:5%;"></td>
+			</tr>
+		</table>
+		
+		
+			<table  style="width: 100%;">
+			
+						<tr>
+						<td style="width:5%;"></td>
+						<td style="text-align:left;white-space:nowrap;width:90%;"><!-- ><label>Category:</label><div>
+					
+
+	<input type="text" list="categoryList" name="categoryDL" class="form-control" id="categoryDL" style="width: 100%;" placeholder="Select" value=""/> 
+							<input type="hidden" name="categoryId"  id="categoryId" class="required" />
+							</div> -->
+							
+							 <div class="form-group"><label>Main Category :</label>
+						<select id="maincategoryContainer"  name="maincategoryContainer" class="selectoptionformcontrol form-control" data-role="none" style="width:100%" onChange="categoryChange()">
+				    		<script id="txtCategoryTmpl" type="text/template">
+                   			<option id="" value="">Select</option>
+                    		<% _.each(mainCategory.mainCategoryList,function(itm){%>
+                    		<option  value="<%= itm.id %>"><%= itm.value %></option>
+                    		<% }); %> 	
+
+    						</script>
+				        </select>
+              </div>	
+							
+							
+							
+							</td>
+							<td style="width:5%;"></td>
+						
+					</tr>
+						<tr>
+						<td style="width:5%;"></td>
+						<td style="text-align:left;white-space:nowrap;width:90%;"> <label>Product:</label><div>
+					
+
+	<input type="text" list="productList"  name="productDL" class="form-control" id="productDL" style="width: 100%;" placeholder="Select"  /> 
+							<input type="hidden" name="productId" id="productId" class="required" />
+							</div></td>
+							
+							<td style="width:5%;"></td>
+						
+					</tr>
+					
+					
+					<tr>
+						
+					   <td style="width:5%;"></td>
+						<td style="text-align:left;white-space:nowrap;width:90%;">
+						<table style="width:100%;">
+						<tr>
+						<td style="width:49%;">
+						
+						<div>
+						 <label>MRP:</label>
+				
+
+							<input type="text" id="txtpopmrpPrice" name="txtpopmrpPrice" class="form-control" onchange="ChangeunitPrice('MRP')" style="width: 100%;" required>
+
+							</div></td>
+						
+			  
+			  <td style="width:2%;"></td>
+			  
+			  
+						<td style="width:49%;">
+						 <div>
+						<label>Unit Price</label>
+						<input type="text" id="txtpopPrice" name="txtpopPrice" class="form-control" onchange="ChangeunitPrice('UNITPRICE')" style="width: 100%;" required>
+						</div>
+						
+			  </td>
+						
+			  </tr>
+			  </table>
+			  </td>
+			  <td style="width:5%;"></td>
+					</tr>
+					
+					
+					
+					<tr>
+						
+					   <td style="width:5%;"></td>
+						<td style="text-align:left;white-space:nowrap;width:90%;">
+						<table style="width:100%;">
+						<tr>
+						<td style="width:49%;">
+						
+						<div>
+						 <label>Qty:</label>
+				
+
+	<input type="text" list="productList" class="form-control" name="qty" id="qty" style="width: 100%;"  onkeypress="return isNumber(event)" onchange="discountChange()"  value="1"/> 
+							<input type="hidden" name="qtyid" id="qtyid" class="required" />
+							</div></td>
+						
+			  
+			  <td style="width:2%;"></td>
+			  
+			  
+						<td style="width:49%;">
+						 <div id="mrpDisplay">
+						<label>Discount %</label>
+	<input type="text"  class="form-control" name="popdiscperc" id="popdiscperc" onchange="discountChange()" style="width: 100%;" /> 
+						</div>
+						
+			  </td>
+						
+			  </tr>
+			  </table>
+			  </td>
+			  <td style="width:5%;"></td>
+					</tr>
+					
+					
+				
+					
+					
+						<tr>
+						<td style="width:5%;"></td>
+					   
+						<td style="text-align:left;white-space:nowrap;width:90%;">
+						<table>
+						<tr>
+						<td style="width:20%;">
+						<div>
+						<label>CGST</label>
+	
+					
+
+<select id="txt_cgst_tax" name="txt_cgst_tax" class="selectoptionformcontrol form-control" onchange="discountChange()" data-role="none">
+									<script id="popcgsttaxTmpl" type="text/template"> 	
+
+                             			<option value="">0</option>
+	                       		 <%	 _.each(TaxList, function (citem) { %>
+<% if (citem.taxType == "CGST"){ %>
+										<option value ="<%= citem.id %>"><%= citem.percentage %></option>
+
+<%}%>
+										<% }); %>
+                                 
+                      </script>
+                             		</select></div></td> 
+                             		
+                             		
+                             		  <td style="width:2%;"></td>
+                             		  
+                             		  
+						<td style="width:20%;">
+						<div>
+						<label>Amount</label>
+					<input type="text" id="txtamut"  name="txtamut" class="form-control" style="width: 100%;" onchange="discountChange()" readonly/>
+						</div>
+						</td>
+						
+						
+						
+						 <td style="width:2%;"></td>
+						
+						
+						
+						<td style="width:20%;">
+						<div>
+						<label>SGST</label>
+					<select id="txt_sgst_tax" name="txt_sgst_tax" onchange="discountChange()" class="selectoptionformcontrol form-control" data-role="none">
+									<script id="popsgsttaxTmpl" type="text/template"> 	
+
+                             			<option value="">0</option>
+	                       		 <%	 _.each(TaxList, function (citem) { %>
+<% if (citem.taxType == "SGST"){ %>
+										<option value ="<%= citem.id %>"><%= citem.percentage %></option>
+
+<%}%>
+										<% }); %>
+                                 
+                      </script>
+                             		</select></div></td> 
+						
+						
+						 <td style="width:2%;"></td>
+						
+						
+						<td style="width:20%;">
+						<div>
+						<label>Amount</label>
+					<input type="text" id="txtsgstamut" name="txtsgstamut" class="form-control" style="width: 100%;" onchange="discountChange()" readonly />
+						</div>
+						</td>
+						
+						
+						</tr>
+				</table>		
+			  </td>
+			  
+			  
+			  
+			  <td style="width:5%;"></td>
+					</tr>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<tr>
+						
+					   <td style="width:5%;"></td>
+						<td style="text-align:left;white-space:nowrap;width:90%;">
+						<div>
+						<label>Total Price</label>
+						<input type="text" id="totlPrice" name="totlPrice" class="form-control" style="width: 100%;"  readonly/>
+						</div>
+						
+			  </td>
+			  <td style="width:5%;"></td>
+					</tr>
+					
+					
+					
+						<tr>
+						<td style="width:5%;"></td>
+						<td style="text-align: right;white-space:nowrap;width:90%;"><div>
+						
+
+	<input type="button" id="newOrder"  name="newOrder" value="Ok" onClick="addNewMaterialToList()"  >
+	</div></td>
+	<td style="width:5%;"></td>
+						
+					</tr>
+					
+						
+						
+				</table>
+			</form>
+		</div>	
+					
+</div>
+
+
+</body>
+</html>
